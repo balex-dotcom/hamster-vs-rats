@@ -1,0 +1,375 @@
+﻿<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Хомяки против Крыс</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#game" aria-label="Хомяки против Крыс">
+        <span>Хомяки против Крыс</span>
+      </a>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <a href="#game">Игра</a>
+        <a href="#characters">Персонажи</a>
+        <a href="#randomizers">Рандомайзеры</a>
+        <a href="#cards">Карты</a>
+        <a href="#rules">Правила</a>
+        <a href="#story">Предыстория</a>
+        <a href="#scoring">Подсчёт ведущего</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="game" class="hero section-shell">
+        <div class="hero-copy">
+          <p class="hero-kicker">Учебный проект · HTML, CSS и JavaScript</p>
+          <h1>Хомяки против Крыс</h1>
+          <div class="hero-text">
+            <p class="lead">Этот сайт создан как личная практика в веб-разработке: HTML, CSS и JavaScript собраны в удобный игровой помощник.</p>
+            <p class="lead">«Хомяки против Крыс» — электронная версия весёлой настольной игры. Проверяйте свою наблюдательность, отвечайте на каверзные вопросы, блефуйте и придумывайте смешные фразы! Здесь можно быстро подготовить партию, запустить рандомайзеры и не потеряться в правилах. Приятной игры!</p>
+          </div>
+          <div class="hero-actions">
+            <a class="action primary" href="#rules">Начать партию</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="characters" class="section-shell characters-zone">
+        <div class="section-title">
+          <p class="eyebrow">Роли игроков</p>
+          <h2>Персонажи</h2>
+          <p>Две стороны одной партии: команда внимательных Хомяков и скрытая Крыса, которая пытается пережить голосование.</p>
+        </div>
+        <div class="character-grid">
+          <button class="character-card hamster-character" type="button" aria-expanded="false">
+            <img src="assets/img/hamster-player.png" alt="Игрок Хомяк" loading="lazy" />
+            <span class="character-shade" aria-hidden="true"></span>
+            <span class="character-copy">
+              <span class="character-label">Игрок Хомяк</span>
+              <strong>Командный сыщик</strong>
+              <span>Хомяк играет открыто и отвечает честно. Его задача — слушать формулировки, задавать точные вопросы, сверять ответы с картами и вместе с другими Хомяками вычислить Крысу до финала.</span>
+            </span>
+          </button>
+          <button class="character-card rat-character" type="button" aria-expanded="false">
+            <img src="assets/img/rat-player.png" alt="Игрок Крыса" loading="lazy" />
+            <span class="character-shade" aria-hidden="true"></span>
+            <span class="character-copy">
+              <span class="character-label">Игрок Крыса</span>
+              <strong>Скрытый манипулятор</strong>
+              <span>Крыса маскируется под обычного игрока, блефует там, где это разрешено, и выполняет потайную задачу «Ля ты крыса». Её цель — не выдать себя и дожить до решающего голосования.</span>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <section id="randomizers" class="section-shell">
+        <div class="section-title">
+          <p class="eyebrow">Случайный выбор</p>
+          <h2>Рандомайзеры</h2>
+          <p>Каждая выпавшая карточка кликабельна: она раскрывает нужную таблицу и подсвечивает строку.</p>
+        </div>
+
+        <div class="randomizer-layout">
+          <article id="answer-randomizer" class="randomizer-card answer-card">
+            <div class="card-heading">
+              <button class="card-heading-link" type="button" data-table-jump="details-answers">Ответы на вопросы</button>
+            </div>
+            <button id="answerResult" class="result-ticket muted" type="button" disabled>
+              <span class="result-category">Ответы на вопросы</span>
+              <strong>Карта появится здесь</strong>
+              <small>Выбирается значение из колонок ЧТО, ГДЕ, КОГДА, КАК, ПОЧЕМУ, КТО.</small>
+            </button>
+            <div class="button-row">
+              <button class="btn gradient" id="drawAnswerButton" type="button">Вытянуть карту</button>
+              <button class="btn outline" id="drawHandButton" type="button">Рука Хомяка</button>
+              <button class="btn outline" id="drawRatHandButton" type="button">Рука Крысы</button>
+            </div>
+            <div id="answerHand" class="hand-grid" aria-live="polite"></div>
+          </article>
+
+          <article id="task-randomizer" class="randomizer-card task-card">
+            <div class="card-heading">
+              <button class="card-heading-link" type="button" data-table-jump="details-tasks,details-lucky" data-table-target="details-tasks">Пан или пропал</button>
+            </div>
+            <button id="taskResult" class="result-ticket task-ticket" type="button" disabled>
+              <span class="result-category">Пан или пропал</span>
+              <strong>Карта появится здесь</strong>
+              <small>Выбирается карта из «Терпи, то, что попало» или «Повезло».</small>
+            </button>
+            <div class="button-row">
+              <button class="btn gradient" id="drawTaskButton" type="button">Вытянуть карту</button>
+            </div>
+          </article>
+
+          <article id="topic-randomizer" class="randomizer-card topic-card">
+            <div class="card-heading">
+              <button class="card-heading-link" type="button" data-table-jump="details-topics">О чём будем говорить</button>
+            </div>
+            <button id="topicResult" class="result-ticket topic-ticket" type="button" disabled>
+              <span class="result-category">Тема подачи</span>
+              <strong>Стиль появится здесь</strong>
+              <small>Описание подачи будет показано ниже.</small>
+            </button>
+            <div class="button-row">
+              <button class="btn gradient" id="drawTopicButton" type="button">Вытянуть стиль</button>
+            </div>
+          </article>
+
+          <article id="rat-randomizer" class="randomizer-card rat-card">
+            <div class="card-heading">
+              <button class="card-heading-link" type="button" data-table-jump="details-rat">Ля ты крыса</button>
+            </div>
+            <button id="ratResult" class="result-ticket rat-ticket" type="button" disabled>
+              <span class="result-category">Потайная карта</span>
+              <strong>Задача появится здесь</strong>
+              <small>Потайная задача Крысы будет показана ниже.</small>
+            </button>
+            <div class="button-row">
+              <button class="btn gradient" id="drawRatButton" type="button">Вытянуть задачу</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="cards" class="section-shell cards-zone">
+        <div class="cards-shell">
+          <h2>
+            <button class="story-toggle cards-toggle" type="button" aria-expanded="true" aria-controls="deckTables" data-cards-toggle>
+              <span>Колода карт</span>
+              <span class="story-toggle-icon" aria-hidden="true"></span>
+            </button>
+          </h2>
+          <div id="deckTables" class="accordion-stack cards-content" data-cards-content></div>
+        </div>
+      </section>
+
+      <section id="rules" class="section-shell rules-zone">
+        <div class="section-title">
+          <p class="eyebrow">Коротко и по делу</p>
+          <h2>Правила игры</h2>
+        </div>
+        <div class="rules-grid">
+          <article class="role-randomizer-rule">
+            <span>1</span>
+            <div class="rule-copy">
+              <h3>Жеребьёвка</h3>
+              <p>Сначала игроки определяют порядок хода: кто ходит первым, вторым, третьим и дальше по очереди. Затем ведущий указывает количество игроков, выбирает сложность и распределяет роли.</p>
+              <p><b>Раздача карт:</b> Хомяк получает четыре карты ответов и одну тему. Крыса получает тему, три карты ответов и одну потайную карту «Ля ты крыса».</p>
+            </div>
+            <div class="role-picker" aria-label="Распределитель ролей">
+              <div class="role-picker-controls">
+                <label class="role-picker-field">
+                  <span>Игроков</span>
+                  <input id="rolePlayerCount" type="number" min="4" max="15" value="5" inputmode="numeric" aria-label="Количество игроков от 4 до 15">
+                </label>
+                <div class="role-mode-toggle" role="group" aria-label="Сложность распределения ролей">
+                  <button class="role-mode-button is-active" type="button" data-role-mode="normal" aria-pressed="true">Основной</button>
+                  <button class="role-mode-button" type="button" data-role-mode="hard" aria-pressed="false">Сложнее</button>
+                </div>
+                <button class="role-distribute-button" id="roleDistributeButton" type="button">Распределить</button>
+              </div>
+              <div class="role-picker-summary" id="rolePickerSummary">Введи количество игроков и нажми «Распределить».</div>
+              <ol class="role-picker-list" id="rolePickerList" aria-label="Выпавшие роли по порядку хода"></ol>
+              <p class="role-picker-note">P.S. В карточной версии такое распределение будет происходить отдельными картами ролей.</p>
+            </div>
+          </article>
+          <article class="timer-rule">
+            <span class="rule-index">2</span>
+            <div class="rule-copy">
+              <h3>Предложение</h3>
+              <p>За 2–5 минут игрок составляет фразу. Ведущий проверяет, что карты использованы корректно.</p>
+            </div>
+            <div class="proposal-timer" aria-label="Таймер на составление предложения">
+              <button class="proposal-timer-display" id="proposalTimerButton" type="button" aria-label="Запустить таймер">
+                <span class="proposal-timer-time" id="proposalTimerValue">05:00</span>
+                <small>Старт / пауза</small>
+              </button>
+              <button class="proposal-timer-reset" id="proposalTimerReset" type="button">Сброс</button>
+            </div>
+          </article>
+          <article><span>3</span><h3>Вопросы</h3><p>Игрок задаёт вопрос с ответом «да» или «нет». Хомяк честен, Крыса может блефовать в допустимых местах.</p></article>
+          <article><span>4</span><h3>Круги</h3><p>Первый круг — вопросы. Второй круг — можно взять карту «Пан или пропал»: «Терпи, то, что попало» или «Повезло». Затем обсуждение и голосование.</p></article>
+          <article><span>5</span><h3>Победа</h3><p>Хомяки выигрывают, если раскрыли Крысу. Крыса выигрывает, если остаётся один на один с Хомяком.</p></article>
+        </div>
+        <div class="sentence-example-card">
+          <div class="example-title">
+            <p class="eyebrow">Подпункт правил</p>
+            <h3>Пример предложения</h3>
+            <p>Этот блок показывает, как из карт собрать фразу и как ведущему проверить её корректность.</p>
+          </div>
+          <div class="example-layout">
+            <div class="example-dealt">
+              <h4>Карты</h4>
+              <div class="example-card-list">
+                <span><b>Что?</b> мем</span>
+                <span><b>Как?</b> громко</span>
+                <span><b>Когда?</b> ночь</span>
+                <span><b>Какой?</b> новый</span>
+                <span><b>Подача</b> как новость</span>
+              </div>
+              <div class="example-sentence">
+                На заседании Госдумы в 23:00 депутат Дим Димыч поднял вопрос о новом, очень популярном в интернете меме «Громкий Вася», который дискредитирует российскую власть.
+              </div>
+            </div>
+            <div class="example-analysis">
+              <h4>Разбор корректности</h4>
+              <div class="analysis-list">
+                <p><b>Что?</b> Слово «мем» прямо использовано в форме «меме».</p>
+                <p><b>Как?</b> Слово «громко» передано через название «Громкий Вася».</p>
+                <p><b>Когда?</b> Ночь заменена смысловым указанием времени: «23:00».</p>
+                <p><b>Какой?</b> Слово «новый» прямо использовано в форме «новом».</p>
+                <p><b>Подача</b> Фраза звучит как короткая новостная сводка.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="player-balance-card">
+          <div class="balance-title">
+            <p class="eyebrow">Подпункт правил</p>
+            <h3>Распределение по количеству игроков</h3>
+            <p>Основной состав — спокойная партия. Усложнённый состав подходит, если хочется больше давления и подозрений.</p>
+            <div class="balance-legend" aria-label="Легенда таблицы">
+              <span><i class="legend-hamster"></i>Хомяки</span>
+              <span><i class="legend-rat"></i>Крысы</span>
+            </div>
+          </div>
+          <div class="balance-scroll">
+            <div class="balance-desktop-pair" aria-label="Распределение ролей по количеству игроков">
+              <div class="balance-grid balance-grid-half" role="table" aria-label="Распределение ролей для 4–9 игроков">
+                <div class="balance-row balance-header" role="row">
+                  <div role="columnheader">Игроков</div>
+                  <div role="columnheader">Основной состав</div>
+                  <div role="columnheader">Сложнее</div>
+                </div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">4</span></div><div role="cell"><span class="balance-combo" aria-label="3 Хомяка и 1 Крыса"><span class="hamster-count">3</span><span class="combo-divider">/</span><span class="rat-count">1</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">5</span></div><div role="cell"><span class="balance-combo" aria-label="4 Хомяка и 1 Крыса"><span class="hamster-count">4</span><span class="combo-divider">/</span><span class="rat-count">1</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="3 Хомяка и 2 Крысы"><span class="hamster-count">3</span><span class="combo-divider">/</span><span class="rat-count">2</span></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">6</span></div><div role="cell"><span class="balance-combo" aria-label="4 Хомяка и 2 Крысы"><span class="hamster-count">4</span><span class="combo-divider">/</span><span class="rat-count">2</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">7</span></div><div role="cell"><span class="balance-combo" aria-label="5 Хомяков и 2 Крысы"><span class="hamster-count">5</span><span class="combo-divider">/</span><span class="rat-count">2</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="4 Хомяка и 3 Крысы"><span class="hamster-count">4</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">8</span></div><div role="cell"><span class="balance-combo" aria-label="5 Хомяков и 3 Крысы"><span class="hamster-count">5</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">9</span></div><div role="cell"><span class="balance-combo" aria-label="6 Хомяков и 3 Крысы"><span class="hamster-count">6</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="5 Хомяков и 4 Крысы"><span class="hamster-count">5</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div></div>
+              </div>
+              <div class="balance-grid balance-grid-half" role="table" aria-label="Распределение ролей для 10–15 игроков">
+                <div class="balance-row balance-header" role="row">
+                  <div role="columnheader">Игроков</div>
+                  <div role="columnheader">Основной состав</div>
+                  <div role="columnheader">Сложнее</div>
+                </div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">10</span></div><div role="cell"><span class="balance-combo" aria-label="7 Хомяков и 3 Крысы"><span class="hamster-count">7</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">11</span></div><div role="cell"><span class="balance-combo" aria-label="8 Хомяков и 3 Крысы"><span class="hamster-count">8</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="7 Хомяков и 4 Крысы"><span class="hamster-count">7</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">12</span></div><div role="cell"><span class="balance-combo" aria-label="8 Хомяков и 4 Крысы"><span class="hamster-count">8</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">13</span></div><div role="cell"><span class="balance-combo" aria-label="9 Хомяков и 4 Крысы"><span class="hamster-count">9</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="8 Хомяков и 5 Крыс"><span class="hamster-count">8</span><span class="combo-divider">/</span><span class="rat-count">5</span></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">14</span></div><div role="cell"><span class="balance-combo" aria-label="9 Хомяков и 5 Крыс"><span class="hamster-count">9</span><span class="combo-divider">/</span><span class="rat-count">5</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+                <div class="balance-row" role="row"><div role="cell"><span class="player-chip">15</span></div><div role="cell"><span class="balance-combo" aria-label="10 Хомяков и 5 Крыс"><span class="hamster-count">10</span><span class="combo-divider">/</span><span class="rat-count">5</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="9 Хомяков и 6 Крыс"><span class="hamster-count">9</span><span class="combo-divider">/</span><span class="rat-count">6</span></span></div></div>
+              </div>
+            </div>
+            <div class="balance-grid balance-grid-mobile" role="table" aria-label="Распределение ролей по количеству игроков">
+              <div class="balance-row balance-header" role="row">
+                <div role="columnheader">Игроков</div>
+                <div role="columnheader">Основной состав</div>
+                <div role="columnheader">Сложнее</div>
+              </div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">4</span></div><div role="cell"><span class="balance-combo" aria-label="3 Хомяка и 1 Крыса"><span class="hamster-count">3</span><span class="combo-divider">/</span><span class="rat-count">1</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">5</span></div><div role="cell"><span class="balance-combo" aria-label="4 Хомяка и 1 Крыса"><span class="hamster-count">4</span><span class="combo-divider">/</span><span class="rat-count">1</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="3 Хомяка и 2 Крысы"><span class="hamster-count">3</span><span class="combo-divider">/</span><span class="rat-count">2</span></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">6</span></div><div role="cell"><span class="balance-combo" aria-label="4 Хомяка и 2 Крысы"><span class="hamster-count">4</span><span class="combo-divider">/</span><span class="rat-count">2</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">7</span></div><div role="cell"><span class="balance-combo" aria-label="5 Хомяков и 2 Крысы"><span class="hamster-count">5</span><span class="combo-divider">/</span><span class="rat-count">2</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="4 Хомяка и 3 Крысы"><span class="hamster-count">4</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">8</span></div><div role="cell"><span class="balance-combo" aria-label="5 Хомяков и 3 Крысы"><span class="hamster-count">5</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">9</span></div><div role="cell"><span class="balance-combo" aria-label="6 Хомяков и 3 Крысы"><span class="hamster-count">6</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="5 Хомяков и 4 Крысы"><span class="hamster-count">5</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">10</span></div><div role="cell"><span class="balance-combo" aria-label="7 Хомяков и 3 Крысы"><span class="hamster-count">7</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">11</span></div><div role="cell"><span class="balance-combo" aria-label="8 Хомяков и 3 Крысы"><span class="hamster-count">8</span><span class="combo-divider">/</span><span class="rat-count">3</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="7 Хомяков и 4 Крысы"><span class="hamster-count">7</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">12</span></div><div role="cell"><span class="balance-combo" aria-label="8 Хомяков и 4 Крысы"><span class="hamster-count">8</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">13</span></div><div role="cell"><span class="balance-combo" aria-label="9 Хомяков и 4 Крысы"><span class="hamster-count">9</span><span class="combo-divider">/</span><span class="rat-count">4</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="8 Хомяков и 5 Крыс"><span class="hamster-count">8</span><span class="combo-divider">/</span><span class="rat-count">5</span></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">14</span></div><div role="cell"><span class="balance-combo" aria-label="9 Хомяков и 5 Крыс"><span class="hamster-count">9</span><span class="combo-divider">/</span><span class="rat-count">5</span></span></div><div role="cell"><span class="balance-empty" aria-label="Без усложнения"></span></div></div>
+              <div class="balance-row" role="row"><div role="cell"><span class="player-chip">15</span></div><div role="cell"><span class="balance-combo" aria-label="10 Хомяков и 5 Крыс"><span class="hamster-count">10</span><span class="combo-divider">/</span><span class="rat-count">5</span></span></div><div role="cell"><span class="balance-combo hard" aria-label="9 Хомяков и 6 Крыс"><span class="hamster-count">9</span><span class="combo-divider">/</span><span class="rat-count">6</span></span></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="story" class="section-shell story-zone">
+        <div class="section-title story-title">
+          <p class="eyebrow">Лор игры</p>
+          <h2 class="story-heading">
+            <button class="story-toggle" type="button" aria-expanded="true" aria-controls="story-body" data-story-toggle>
+              <span>Предыстория</span>
+              <span class="story-toggle-icon" aria-hidden="true"></span>
+            </button>
+            <button class="story-comic-toggle" type="button" aria-pressed="false" aria-expanded="false" aria-controls="story-comic-modal" data-story-comic-toggle>Комикс</button>
+          </h2>
+        </div>
+        <div id="story-body" class="story-body" data-story-content>
+          <div id="story-text" class="story-card" data-story-text>
+            <p>В недалёком будущем учёные НИИ совершили неожиданное открытие, в которое лаборанты поначалу даже не верили. Во время исследований нового вида кордицепса, появившегося вследствие изменений климата и глобального потепления, был обнаружен неизвестный генетический механизм, связанный с ускоренным развитием живых организмов.</p>
+            <p>Изначально экстракты гриба испытывали на жуках, но результаты оказались настолько скромными, что о них предпочитали не вспоминать. Тогда было принято научное и одновременно крайне экономное решение — перейти на хомяков.</p>
+            <p>Спустя некоторое время эксперимент всё же дал результат. Один из хомяков, получивший гордое имя Прайм, хотя часть сотрудников любили называть его Чебурашкой из-за чрезвычайно больших ушей, начал стремительно развиваться.</p>
+            <p>На протяжении трёх лет и четырнадцати дней он демонстрировал всё более высокие результаты в тестах, становился физически сильнее, его мозг увеличивался в размерах, морда постепенно меняла форму, а на лапах появились зачатки больших пальцев, позволявшие удерживать лёгкие предметы.</p>
+            <p>К сожалению, ускоренное развитие имело свою цену. Из-за чрезвычайно быстрого деления клеток у Прайма развилось онкологическое заболевание, и вскоре он погиб.</p>
+            <p>Тело подопытного было тщательно изучено. Особое внимание учёные уделили его нервной системе и мозгу, поскольку именно там наблюдались наиболее заметные изменения. В результате исследований была обнаружена необычная комбинация химических соединений, предположительно связанная с эффектом развития.</p>
+            <p>Полученное вещество удалось воспроизвести на основе компонентов гриба. После этого его начали добавлять в корм другим хомякам.</p>
+            <p>Однако научный прогресс редко обходится без человеческого фактора. Из-за небрежности сотрудников часть корма случайно попала в соседний вольер с крысами. Руководство института узнало об этом слишком поздно, когда и хомяки, и крысы уже начали демонстрировать признаки ускоренного развития.</p>
+            <p>Со временем подопытные достигли уровня, на котором смогли осознанно общаться друг с другом, обмениваться информацией и даже спорить.</p>
+            <p>Самым удивительным оказалось другое: когда в группу хомяков подсадили крысу, они не смогли определить, что перед ними представитель другого вида. Это было крайне странно, поскольку к этому моменту уровень интеллекта подопытных уже позволял решать логические задачи, но почему-то не позволял различать очевидные внешние отличия.</p>
+            <p>Одни учёные считали, что развитие интеллекта опередило развитие инстинктов. Другие предполагали, что вещество воздействовало на восприятие сородичей. Третьи честно признались, что сами ничего не поняли, но им было очень интересно.</p>
+            <p>Чтобы наконец выяснить, кто же оказался умнее, исследователи объявили соревнование. Правила были просты: хомякам нужно было вычислить крысу среди себя, а крысе — остаться нераскрытой до конца испытания.</p>
+            <p class="note">P. S. Ни одно животное не пострадало в ходе данных экспериментов.</p>
+          </div>
+        </div>
+        <div id="story-comic-modal" class="story-comic-modal" role="dialog" aria-modal="true" aria-label="Комикс с предысторией" data-story-comic hidden>
+          <button class="story-comic-backdrop" type="button" aria-label="Закрыть комикс" data-story-comic-close></button>
+          <figure class="story-comic-frame">
+            <button class="story-comic-close" type="button" aria-label="Закрыть комикс" data-story-comic-close>×</button>
+            <img src="assets/img/story-comic.png" alt="Комикс с предысторией игры Хомяки против Крыс" loading="lazy" />
+          </figure>
+        </div>
+      </section>
+
+      <section id="scoring" class="section-shell scoring-zone">
+        <div class="section-title">
+          <p class="eyebrow">Журнал партии</p>
+          <h2>Подсчёт ведущего</h2>
+        </div>
+        <div class="score-board">
+          <form id="playerForm" class="score-form">
+            <label>Игрок<input id="playerName" type="text" placeholder="Например, Прайм" /></label>
+            <label>Роль<select id="playerRole"><option>Хомяк</option><option>Крыса</option></select></label>
+            <button class="btn gradient" type="submit">Добавить</button>
+            <button class="btn outline" type="button" id="resetScoreButton">Сбросить</button>
+          </form>
+          <div id="scoreGrid" class="score-list"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          <p class="footer-kicker">Обратная связь</p>
+          <h2>Спасибо за партию</h2>
+          <p>Если вам понравилась игра, есть пожелания, корректировки по сайту или идеи для новых карт — добро пожаловать, жду ваших отзывов. Правила, колоды и игровые подсказки ниже рассчитаны на будущие физические карточки; если захотите поддержать картонную версию игры, можно написать мне и обсудить донат на печать карточек.</p>
+          <p class="footer-ps">P.S. Отдельная благодарность моей жене за помощь и поддержку ♥</p>
+        </div>
+        <form class="footer-feedback" id="feedbackForm">
+          <label for="feedbackMessage">Ваш отзыв или идея</label>
+          <textarea id="feedbackMessage" rows="4" placeholder="Например: добавить новые карты, поправить правило или поддержать картонную версию игры."></textarea>
+          <button class="footer-button" type="submit">Отправить отзыв</button>
+          <p class="feedback-note">После нажатия откроется Gmail с готовым письмом. Сайт не хранит и не отправляет отзыв анонимно.</p>
+        </form>
+      </div>
+    </footer>
+
+    <nav class="mobile-tabbar" aria-label="Быстрая мобильная навигация">
+      <a href="#game">Игра</a>
+      <a href="#randomizers">Рандом</a>
+      <a href="#cards">Колода</a>
+      <a href="#rules">Правила</a>
+      <a href="#story">Предыстория</a>
+      <a href="#scoring">Ведущий</a>
+    </nav>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
